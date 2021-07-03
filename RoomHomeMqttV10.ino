@@ -1,48 +1,3 @@
-////////////////////////////////////////////////////////////////////////
-//  Room MODULE 2019////////////////////////////////////////////////////
-/*
- * PIN SETTING INPUT / OUTPUT
-
- * LED PWM          - 6
- * CLOCKPIN P       - 7
- * DATAPIN P        - 8
- * INPIN BUTTON     - 14
- * INPIN BUTTON     - 15
- * INPIN BUTTON     - 16
- * INPIN BUTTON     - 17
- * INPIN BUTTON     - 18
- * INPIN BUTTON     - 19
- * INPIN BUTTON     - 50
- * INPIN BUTTON     - 45
- * INPIN BUTTON     - 2
- * INPIN BUTTON     - 3
- * OUTPUT WEB       - 22
- * OUTPUT WEB       - 23
- * OUTPUT WEB       - 24
- * OUTPUT WEB       - 25
- * OUTPUT WEB       - 26
- * OUTPUT WEB       - 27
- * OUTPUT WEB       - 28
- * OUTPUT WEB       - 29
- * OUTPUT WEB       - 30
- * OUTPUT WEB       - 31
- * OUTPUT WEB       - 32
- * OUTPUT WEB       - 33
- * OUTPUT WEB       - 34
- * OUTPUT WEB       - 35
- * OUTPUT WEB       - 36
- * OUTPUT WEB       - 37
- * MOTOR CONTROL    - 42
- * MOTOR CONTROL    - 43
- * MOTOR MODULE 1   - 38
- * MOTOR MODULE 1   - 39
- * MOTOR MODULE 2   - 40
- * MOTOR MODULE 2   - 41
- * PIR VOORDEUR     - 5
- * TEMP KAMER       - A0
- * TEMP HAL         - A15
- */
-////////////////////////////////////////////////////////////////////////
 #include <Ethernet.h>  // Ethernet Commands
 #include <SPI.h>       // SPI Commands
 #include <PubSubClient.h>//mqtt 
@@ -58,16 +13,16 @@ CRGB leds[NUM_LEDS];
 #define DHTTYPE DHT11 //21 or 22 also an option
 DHT dht1(DHTPIN1, DHTTYPE);// DHT11 temperature and humidty sensor
 DHT dht2(DHTPIN2, DHTTYPE);// DHT11 temperature and humidty sensor
-//CONFIGURATION Room MODULE ///////////////////////////////////////////
+
 //IP manual settings
-byte ip[] = {  192, 168, 178, 63 }; // NORMAL 63 / TEST 30 SETUP
-byte gateway[] = {  192, 168, 178, 1 }; //Manual setup only
-byte subnet[] = {  255, 255, 255, 0 }; //Manual setup only
+byte ip[] = {  xxx, xxx, xxx, xx }; // 
+byte gateway[] = {  xxx, xxx, xxx, x }; //Manual setup only
+byte subnet[] = {  xxx, xxx, xxx, x }; //Manual setup only
 byte mac[] = {   0x02, 0xEE, 0xFF, 0xDE, 0xAD, 0x01 };// orginele room config. mac adres.
 byte Server2[] = {192,168,178,70};// IP address of MQTT server
-const char * clientID = "led_Room";
-const char * user = "openhab";
-const char * passw = "Ard2018EmU";
+const char * clientID = "xxxxxxxx";// your mqtt id 
+const char * user = "openhab";// your mqtt user name
+const char * passw = "xxxxxxxxx";// your mqtt password
 //Ethernet Port
 EthernetServer server = EthernetServer(80); //default html port 80
 EthernetClient ethClient;
@@ -88,20 +43,20 @@ int outputAddress[]  = {22, 23, 24, 25, 34, 35, 36, 37 };
 int outputAddress1[] = {26, 27, 28, 29, 30, 31, 32, 33 };
 int outputAddress2[] = {46, 47, 48, 49 };
 String buttonText[8] = {
-  "Love",
-  "Tv Meubel",
-  "Klok Dolphine",
-  "fans heaters",
-  "RGB Strip",
-  "Bureau",
-  "Kamer",
-  "Beam Bureau"
-};
-String buttonText1[8] = {
-  "Plant sens",
+  "Relay1",
+  "Relay2",
+  "Relay3",
+  "Relay4",
+  "Relay5",
   "Relay6",
   "Relay7",
-  "Relay8",
+  "Relay8"
+};
+String buttonText1[8] = {
+  "Relay9",
+  "Relay10",
+  "Relay11",
+  "Relay12",
   "Relay13",
   "Relay14",
   "Relay15",
@@ -136,12 +91,12 @@ boolean writeTo = false;
 //////////////////////////////////////////////////////////////////////////////
 int inPin0 = 11;//NOT CONNECTED
 int inPin1 = 12;//
-int inPin2 = 14;//wand wiek
-int inPin3 = 15;//rgb strip
-int inPin4 = 16;//bureau
+int inPin2 = 14;//
+int inPin3 = 15;// 
+int inPin4 = 16;//
 int inPin5 = 17;//
-int inPin6 = 18;// USED
-int inPin7 = 19;// DESK LIGHT
+int inPin6 = 18;// 
+int inPin7 = 19;//  
 int inPin8 = 2;
 int inPin9 = 3;
 int inPin10 = 44;
@@ -262,7 +217,7 @@ int DataG;
 int DataB;
 int DataP;
 int PWM = 9;
-int sensorPin = 6;  //hek sensor open close voor
+int sensorPin = 6;  //hek sensor open close 
 int pirPin1 = 5; //pin for the pir sensor at the front door
 int pir1old = 0;  
 int pir1 = 0;
@@ -290,9 +245,7 @@ int motorState;                // variable to hold the button state
 int motorState1;               // variable to hold the button state
 int motorMode = 0;             // What mode is the motor in?
 int motorMode1 = 0;            // what mode is the motor in?
-/////////////////////////////////////////////////////////////////////
-// ANALOG INPUTS Related Reading KAMER MODULE ///////////////////////
-/////////////////////////////////////////////////////////////////////
+
 //const int tempInPin    = A0;// analog input temperature NOT CONNECTED
 const int voltage      = A1;// analog input voltage 12V
 const int amperage     = A3;// analog input amperage 12V
